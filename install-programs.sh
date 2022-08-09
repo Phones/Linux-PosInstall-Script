@@ -54,8 +54,8 @@ function pwc()
 function update_system()
 {
     pwc "blue" "atualizando o sistema"
-    apt-get update -y
-    apt-get upgrade -y
+    sudo apt-get update -y
+    sudo apt-get upgrade -y
 }
 
 # -------------------------------------------------------------
@@ -69,7 +69,7 @@ for program_name in ${INSTALAR_POR_GERENCIADOR[@]}; do
     # Verifica se o programa já está instalado
     if ! dpkg -l | grep -q $program_name; then
         pwc "blue" "   ---> [instalando] $program_name"
-        apt-get install "$program_name" -y
+        sudo apt-get install "$program_name" -y
     else
         pwc "green" "   [✔] - $program_name"
     fi
@@ -77,6 +77,8 @@ done
 pwc "green" "Instalação dos programas de gerenciador finalizado"
 
 # ----------------------------------------------------------------------------------------------------------
+
+update_system
 
 # -------------- Faz a instalação dos programas que precisam ser baixados externamente ---------------------
 pwc "blue" "criando e acessando pasta de downloads dos programas externos"
@@ -108,7 +110,18 @@ flatpak install flathub com.obsproject.Studio -y
 snap install spotify
 # ---------------------------------------------------------------------
 
+# ---------------------------- Atualiza o sistema e executa os comandos de limpeza -------------------------
+sudo apt update && sudo apt dist-upgrade -y
+flatpak update
+sudo apt autoclean
+sudo apt autoremove -y
+rm -rf $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS
+# ----------------------------------------------------------------------------------------------------------
+
+
 pwc "green" "programas instalados"
 for program_name in ${LISTA_NOMES_PROGRAMAS_EXTERNOS[@]}; do
     pwc "green" "   [✔] - $program_name"
 done
+
+print "green" "[✔] script de instalação finalizado [✔]"
