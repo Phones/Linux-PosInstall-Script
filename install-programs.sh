@@ -22,14 +22,25 @@ function pwc()
 
 # ------------------- Atualização do sistema ------------------
 
+# ------------------- Faz download de um arquivo utilizando wget ------------
+function DWget()
+{
+    url=$1
+    wget -c "${url}"
+}
+# ---------------------------------------------------------------------------
 
-pwc "blue" "atualizando o sistema"
-
-apt-get update -y
-
-apt-get upgrade -y
+function update_system()
+{
+    pwc "blue" "atualizando o sistema"
+    apt-get update -y
+    apt-get upgrade -y
+}
 
 # -------------------------------------------------------------
+
+
+update_system
 
 # ------------------ Programas que podem ser instalados pelo gerenciador de pacotes ----------------------
 INSTALAR_POR_GERENCIADOR=(
@@ -56,5 +67,7 @@ pwc "green" "Instalação dos programas de gerenciador finalizado"
 
 # ----------------------------------------------------------------------------------------------------------
 
-
+# --------- Faz a instalação dos programas que precisam ser bbaixados de maneira externa -------------------
+mkdir /home/paulohenrique/Downloads/Programas
+# ----------------------------------------------------------------------------------------------------------
 
