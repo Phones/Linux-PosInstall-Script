@@ -38,6 +38,22 @@ INSTALAR_POR_GERENCIADOR=(
     steam:i386
 )
 
+VSCODE_EXTENSIONS=(
+    dracula-theme.theme-dracula
+    foxundermoon.shell-format
+    ms-python.python
+    ms-python.vscode-pylance
+    ms-toolsai.jupyter
+    ms-toolsai.jupyter-keymap
+    ms-toolsai.jupyter-renderers
+    ms-vscode-remote.remote-ssh
+    ms-vscode-remote.remote-ssh-edit
+    ms-vscode.cpptools
+    natqe.reload
+    PKief.material-icon-theme
+    truman.autocomplate-shell
+)
+
 # ------------------------------------------------------------
 
 # ------------------  print with color -----------------------
@@ -118,10 +134,22 @@ sudo apt autoremove -y
 rm -rf $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS
 # ----------------------------------------------------------------------------------------------------------
 
-
 pwc "green" "programas instalados"
 for program_name in ${LISTA_NOMES_PROGRAMAS_EXTERNOS[@]}; do
     pwc "green" "   [✔] - $program_name"
 done
+
+# --------------------- Faz a configuração do VSCode ---------------------
+pwc "blue" "instalando extenções do vscode"
+for vscode_extension_name in ${VSCODE_EXTENSIONS}; do
+    {
+        pwc "blue" "instalando extensão ${vscode_extension_name}"
+        code --install-extension $vscode_extension_name
+    } || {
+	    pwc "red" "a extensão ${vscode_extension_name} já está instalada"
+    }
+done
+pwc "green" "extensões instaladas"
+#-------------------------------------------------------------------------
 
 print "green" "[✔] script de instalação finalizado [✔]"
