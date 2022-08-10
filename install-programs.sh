@@ -149,19 +149,19 @@ pwc "blue" "Removendo versão antiga do docker"
 sudo apt-get update
 
 pwc "blue" "Instalando os pacotes necessários"
-apt-get install ca-certificates curl gnupg lsb-release -y
+sudo apt-get install ca-certificates curl gnupg lsb-release -y
 
 pwc "blue" "Adicionando Docker GPG key"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
 pwc "blue" "Setando repositorio estavel"
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/sudo apt/sources.list.d/docker.list > /dev/null
 
 pwc "blue" "Atualizando os pacotes"
-apt-get update
+sudo apt-get update
 
 pwc "blue" "Instalando o Docker Engine"
-apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 
 pwc "green" "Versão do Docker instalada: "
 docker --version
