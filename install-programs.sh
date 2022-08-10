@@ -24,6 +24,7 @@ LISTA_NOMES_PROGRAMAS_INSTALADOS=(
     "OBS"
     "docker"
     "docker-compose"
+    "obsidian"
 )
 
 INSTALAR_POR_GERENCIADOR=(
@@ -106,6 +107,7 @@ DOWNLOAD_PROGRAMAS_EXTERNOS=(
     "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
     "https://az764295.vo.msecnd.net/stable/da76f93349a72022ca4670c1b84860304616aaa2/code_1.70.0-1659589288_amd64.deb"
     "https://dl.discordapp.net/apps/linux/0.0.18/discord-0.0.18.deb"
+    "https://objects.githubusercontent.com/github-production-release-asset-2e65be/262342594/97d35eb0-ef50-4623-ab3f-24dbc72fa82c?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220810%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220810T061410Z&X-Amz-Expires=300&X-Amz-Signature=f2a14b22c7d3a9c83d7e248baa374281069d5bc241d087d85f60777e55dcf198&X-Amz-SignedHeaders=host&actor_id=32886272&key_id=0&repo_id=262342594&response-content-disposition=attachment%3B%20filename%3Dobsidian_0.15.9_amd64.deb&response-content-type=application%2Foctet-stream"
 )
 
 pwc "blue" "fazendo download de todos os programas externos"
