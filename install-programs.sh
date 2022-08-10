@@ -35,6 +35,8 @@ INSTALAR_POR_GERENCIADOR=(
     python3-pip
     python-is-python3
     nano
+    htop
+    gparted
     snapd
     steam-installer
     steam-devices
