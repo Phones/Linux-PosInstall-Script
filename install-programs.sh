@@ -22,6 +22,8 @@ LISTA_NOMES_PROGRAMAS_INSTALADOS=(
     "discord"
     "steam"
     "OBS"
+    "docker"
+    "docker-compose"
 )
 
 INSTALAR_POR_GERENCIADOR=(
@@ -126,6 +128,60 @@ flatpak install flathub com.obsproject.Studio -y
 snap install spotify
 # ---------------------------------------------------------------------
 
+# ----------------- Instalação do Docker e Docker Compose ----------------
+
+update_system
+
+pwc "blue" "------ INICIANDO INSTALAÇÃO DO DOCKER ------"
+
+pwc "blue" "Removendo versão antiga do docker"
+
+{
+	sudo apt-get remove docker docker-engine docker.io containerd runc
+} || {
+	pwc "green" "Não existe versões anteriores para serem removidas"
+}
+
+sudo apt-get update
+
+pwc "blue" "Instalando os pacotes necessários"
+apt-get install ca-certificates curl gnupg lsb-release -y
+
+pwc "blue" "Adicionando Docker GPG key"
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+pwc "blue" "Setando repositorio estavel"
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+pwc "blue" "Atualizando os pacotes"
+apt-get update
+
+pwc "blue" "Instalando o Docker Engine"
+apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+
+pwc "green" "Versão do Docker instalada: "
+docker --version
+
+pwc "green" "Iniciando serviço Docker"
+service docker start
+
+pwc "green" "Instalação do Docker Finalizada!"
+pwc "green" "--------------------------------------------"
+
+pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
+
+pwc "green" "Download do Docker Compose"
+curl -L "https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+
+pwc "green" "Setando permição para o Docker compose"
+chmod +x /usr/local/bin/docker-compose
+
+pwc "green" "Instalação do Docker Compose Finalizada!"
+
+pwc "green" "----------------------------------------------------"
+
+# ------------------------------------------------------------------------
+
 # ---------------------------- Atualiza o sistema e executa os comandos de limpeza -------------------------
 sudo apt update && sudo apt dist-upgrade -y
 flatpak update
@@ -151,5 +207,6 @@ for vscode_extension_name in ${VSCODE_EXTENSIONS}; do
 done
 pwc "green" "extensões instaladas"
 #-------------------------------------------------------------------------
+
 
 print "green" "[✔] script de instalação finalizado [✔]"
