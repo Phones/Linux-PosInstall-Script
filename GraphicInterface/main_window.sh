@@ -1,25 +1,71 @@
 #!/bin/bash
 
+MainWindow() {
+    # Resposta do usuario
+    local resposta=()
+    # Construir a lista de opções para o Zenity
+    local lista_opcoes=""
+    # Caminho para o ícone do programa
+    icone_do_programa="Icons/config_linux_icon.png"
+    # Array com as opções disponíveis
+    local opcoes=(
+        git
+        wget
+        g++
+        python3
+        python3-pip
+        python-is-python3
+        "snapd"
+        "spotify"
+        "google"
+        "vscode"
+        "discord"
+        "steam"
+        "OBS"
+        "docker"
+        "docker-compose"
+        "obsidian"
+    )
 
-# Array com as opções disponíveis
-opcoes=("Git" "Opção 2" "Opção 3" "Opção 4")
+    contruir_lista_opcao() {
+        for opcao in "${opcoes[@]}"; do
+            lista_opcoes+="FALSE $opcao "
+        done
+    }
 
-# Construir a lista de opções para o Zenity
-lista_opcoes=""
-for opcao in "${opcoes[@]}"; do
-  lista_opcoes+="FALSE '$opcao' "
-done
+    exibir_janela() {
+        # Exibir a janela com as caixas de seleção e obter as opções selecionadas
+        resposta=$(
+            zenity --list \
+            --checklist \
+            --column "" \
+            --column "Opções" \
+            --separator=" " \
+            --window-icon=$icone_do_programa
+            --title "Selecione as opções" \
+            --text "Selecione as opções desejadas:" \
+            $lista_opcoes
+        )
+    }
 
-# Exibir a janela com as caixas de seleção e obter as opções selecionadas
-resposta=$(zenity --list --checklist --column "" --column "Opções" --separator=" " --title "Selecione as opções" --text "Selecione as opções desejadas:" $lista_opcoes)
+    lista_de_opcoes_selecionadas() {
+        local opcoes_selecionadas=()
+        # Verificar se o usuário selecionou alguma opção
+        if [ $? -eq 0 ]; then
+            # Exibir as opções selecionadas
+            echo "Opções selecionadas:"
+            for opcao in $resposta; do
+                opcoes_selecionadas+=("$opcao")
+            done
+        else
+            echo "Nenhuma opção selecionada."
+        fi
 
-# Verificar se o usuário selecionou alguma opção
-if [ $? -eq 0 ]; then
-    # Exibir as opções selecionadas
-    echo "Opções selecionadas:"
-    for opcao in $resposta; do
-        echo "$opcao"
-    done
-else
-    echo "Nenhuma opção selecionada."
-fi
+        # Retornar a lista de opções selecionadas
+        echo "${opcoes_selecionadas[@]}"
+    }
+
+    contruir_lista_opcao
+    exibir_janela
+    lista_de_opcoes_selecionadas
+}
