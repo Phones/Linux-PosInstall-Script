@@ -41,7 +41,6 @@ MainWindow() {
             --column "" \
             --column "Opções" \
             --separator=" " \
-            --window-icon=$icone_do_programa
             --title "Selecione as opções" \
             --text "Selecione as opções desejadas:" \
             $lista_opcoes
