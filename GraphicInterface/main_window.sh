@@ -41,6 +41,8 @@ MainWindow() {
             --column "" \
             --column "Opções" \
             --separator=" " \
+            --width=400 \
+            --height=600 \
             --title "Selecione as opções" \
             --text "Selecione as opções desejadas:" \
             $lista_opcoes
