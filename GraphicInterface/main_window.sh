@@ -2,19 +2,19 @@
 
 MainWindow() {
     # Resposta do usuario
-    local resposta=()
+    declare -a resposta=()
     # Construir a lista de opções para o Zenity
     local lista_opcoes=""
     # Caminho para o ícone do programa
     icone_do_programa="Icons/config_linux_icon.png"
     # Array com as opções disponíveis
-    local opcoes=(
-        git
-        wget
-        g++
-        python3
-        python3-pip
-        python-is-python3
+    declare -a opcoes=(
+        "git"
+        "wget"
+        "g++"
+        "python3"
+        "python3-pip"
+        "python-is-python3"
         "snapd"
         "spotify"
         "google"
@@ -29,7 +29,7 @@ MainWindow() {
 
     contruir_lista_opcao() {
         for opcao in "${opcoes[@]}"; do
-            lista_opcoes+="TRUE $opcao "
+            lista_opcoes+="FALSE $opcao "
         done
     }
 
@@ -50,11 +50,10 @@ MainWindow() {
     }
 
     lista_de_opcoes_selecionadas() {
-        local opcoes_selecionadas=()
+        declare -a opcoes_selecionadas=()
         # Verificar se o usuário selecionou alguma opção
         if [ $? -eq 0 ]; then
             # Exibir as opções selecionadas
-            echo "Opções selecionadas:"
             for opcao in $resposta; do
                 opcoes_selecionadas+=("$opcao")
             done
