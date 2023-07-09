@@ -29,7 +29,7 @@ MainWindow() {
 
     contruir_lista_opcao() {
         for opcao in "${opcoes[@]}"; do
-            lista_opcoes+="FALSE $opcao "
+            lista_opcoes+="TRUE $opcao "
         done
     }
 

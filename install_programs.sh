@@ -4,7 +4,7 @@ source helpers.sh
 
 InstallPrograms() {
     declare -a INSTALAR_POR_GERENCIADOR=("$@")
-    CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$PWD/Downloads"
+    CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$PWD/Downloads/"
 
     # Criar as listas dos programas que vão ser instalados
     VSCODE_EXTENSIONS=()
@@ -46,8 +46,9 @@ InstallPrograms() {
 
     donwload_todos_programas_externos() {
         pwc "blue" "fazendo download de todos os programas externos"
-        for program_url in ${DOWNLOAD_PROGRAMAS_EXTERNOS[@]}; do
-            wget -c "${program_url}"
+        for program_url in "${DOWNLOAD_PROGRAMAS_EXTERNOS[@]}"; do
+            string_aleatoria=$(date +%s | sha256sum | head -c 10)
+            wget -c -q --show-progress -P $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS -O "$CAMINHO_PASTA_DOWNLOADS_PROGRAMAS$string_aleatoria".deb "${program_url}"
         done
         pwc "green" "todos os downloads foram finalizados"
     }
@@ -115,15 +116,16 @@ InstallPrograms() {
 
     update_system
     le_tmp_files
-    delete_tmp_files
+    # delete_tmp_files
     instala_os_pacostes_gerenciador_de_pacotes
     update_system
+    cria_pasta_download
     donwload_todos_programas_externos
-    instala_todos_os_programs_baixados
-    update_system
-    instala_programas_flatpack
-    instala_programas_snap
-    update_system
-    instala_docker
-    instala_docker_compose
+    # instala_todos_os_programs_baixados
+    # update_system
+    # instala_programas_flatpack
+    # instala_programas_snap
+    # update_system
+    # instala_docker
+    # instala_docker_compose
 }

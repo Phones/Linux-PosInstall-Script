@@ -6,7 +6,7 @@ CreateListsOfPrograms() {
     # Pega a lista de opções que o usuario selecionou
     declare -a opcoes_selecionadas=("$@")
 
-    declare -a links_download
+    declare -A links_download
     links_download["google"]="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
     links_download["vscode"]="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
     links_download["discord"]="https://discord.com/api/download?platform=linux&format=deb"
@@ -105,7 +105,6 @@ CreateListsOfPrograms() {
             LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
         fi
     }
-
     cria_lista_instalar_por_gerenciador
     cria_lista_instalar_programas_externos
     verifica_instalar_docker
@@ -125,9 +124,7 @@ CreateListsOfPrograms() {
         printf "%s\n" "${VSCODE_EXTENSIONS[@]}"
     } > $caminho_vscode_tmp_file
 
-    {
-        printf "%s\n" "${DOWNLOAD_PROGRAMAS_EXTERNOS[@]}"
-    } > $caminho_programas_externos
+    printf "%s\n" "${DOWNLOAD_PROGRAMAS_EXTERNOS[@]}" > $caminho_programas_externos
     # ------------------------------------------------------------
     {
         printf "%s\n" "$INSTALL_DOCKER"

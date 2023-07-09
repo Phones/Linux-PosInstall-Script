@@ -6,15 +6,15 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$PWD/Downloads"
+CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$PWD/Downloads/"
 caminho_vscode_tmp_file="/tmp/vscode_extensions.txt"
 caminho_instalar_por_gerenciador_file="/tmp/instalar_por_gerenciador.txt"
 caminho_nomes_programas_instalados_file="/tmp/nomes_programas_instalados.txt"
-caminho_programas_externos="/tmp/programas_externos.txt"
-caminho_docker_file="/tmp/programas_externos.txt"
-caminho_docker_compose_file="/tmp/programas_externos.txt"
-caminho_spotify_file="/tmp/programas_externos.txt"
-caminho_obs_file="/tmp/programas_externos.txt"
+caminho_programas_externos="/tmp/download_programas_externos.txt"
+caminho_docker_file="/tmp/docker_file.txt"
+caminho_docker_compose_file="/tmp/docker_compose_file.txt"
+caminho_spotify_file="/tmp/spotify_file.txt"
+caminho_obs_file="/tmp/obs_file.txt"
 
 # ------------------  print with color -----------------------
 function pwc()
@@ -62,7 +62,7 @@ vertifica_programa_instalado() {
   local programa="$1"
 
   # Verificar se o programa está instalado
-  if which "$programa" >/dev/null 2>&1; then
+  if dpkg -l | grep -q $programa; then
       return 0  # Retorna 0 (true) se o programa estiver instalado
   else
       return 1  # Retorna 1 (false) se o programa não estiver instalado
