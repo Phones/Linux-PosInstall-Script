@@ -83,9 +83,9 @@ InstallPrograms() {
             } || {
                 pwc "green" "Não existe versões anteriores para serem removidas"
             }
-            sudo apt-get update
+            sudo apt-get update &>/dev/null
             pwc "blue" "Instalando os pacotes necessários"
-            sudo apt-get install ca-certificates curl gnupg lsb-release -y
+            sudo apt-get install ca-certificates curl gnupg lsb-release -y &>/dev/null
 
             sudo curl -fsSL https://get.docker.com | bash
             sudo systemctl enable docker
@@ -132,4 +132,5 @@ InstallPrograms() {
     update_system
     instala_docker
     instala_docker_compose
+    atualiza_tudo_e_limpa_o_sistema
 }
