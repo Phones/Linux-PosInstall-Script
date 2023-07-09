@@ -35,7 +35,7 @@ InstallPrograms() {
             # Verifica se o programa já está instalado
             if ! vertifica_programa_instalado "$program_name"; then
                 pwc "blue" "   ---> [instalando] $program_name"
-                sudo apt-get install "$program_name" -y &>/dev/null
+                sudo apt-get install "$program_name" -y > /dev/null 2> Logs/erro_$program_name.txt
             else
                 pwc "green" "   [✔] - $program_name"
             fi
@@ -61,7 +61,7 @@ InstallPrograms() {
     instala_programas_flatpack() {
         if [ "$INSTALL_OBS" -eq 0 ]; then
             pwc "BLUE" "Instalando OBS"
-            flatpak install --progress flathub com.obsproject.Studio -y > /dev/null
+            flatpak install --progress flathub com.obsproject.Studio -y > /dev/null 2> Logs/erro_obs.txt
             pwc "green" "OBS Instalado"
         fi
     }
@@ -69,7 +69,7 @@ InstallPrograms() {
     instala_programas_snap() {
         if [ "$INSTALL_SPOTIFY" -eq 0 ]; then
             pwc "BLUE" "Instalando spotify"
-            snap install spotify
+            snap install spotify 2> Logs/erro_spotify.txt
             pwc "green" "Spotify instalado"
         fi
     }
@@ -85,7 +85,7 @@ InstallPrograms() {
             }
             sudo apt-get update &>/dev/null
             pwc "blue" "Instalando os pacotes necessários"
-            sudo apt-get install ca-certificates curl gnupg lsb-release -y &>/dev/null
+            sudo apt-get install ca-certificates curl gnupg lsb-release -y > /dev/null 2> Logs/erro_docker.txt
 
             sudo curl -fsSL https://get.docker.com | bash
             sudo systemctl enable docker
@@ -100,7 +100,7 @@ InstallPrograms() {
             pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
 
             pwc "green" "Download do Docker Compose"
-            sudo curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+            sudo curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose > /dev/null 2> Logs/erro_docker_compose.txt
 
             pwc "green" "Setando permição para o Docker compose"
             sudo chmod +x /usr/local/bin/docker-compose

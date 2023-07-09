@@ -30,8 +30,8 @@ function pwc()
 function update_system()
 {
   pwc "blue" "atualizando o sistema"
-  sudo apt-get update -y &>/dev/null
-  sudo apt-get upgrade -y &>/dev/null
+  sudo apt-get update -y > /dev/null 2> Logs/erro_update.txt
+  sudo apt-get upgrade -y > /dev/null 2> Logs/erro_upgrade.txt
 }
 # -------------------------------------------------------------
 
@@ -75,7 +75,8 @@ cria_pasta_download() {
 }
 
 atualiza_tudo_e_limpa_o_sistema() {
-  sudo apt update && sudo apt dist-upgrade -y
+  sudo apt update -y> /dev/null 2> Logs/erro_update.txt
+  sudo apt dist-upgrade -y > /dev/null 2> Logs/erro_dist.txt
   sudo apt install -fy
   flatpak update
   sudo apt autoclean
