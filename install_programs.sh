@@ -61,7 +61,7 @@ InstallPrograms() {
     instala_programas_flatpack() {
         if [ "$INSTALL_OBS" -eq 0 ]; then
             pwc "BLUE" "Instalando OBS"
-            flatpak install flathub com.obsproject.Studio -y
+            flatpak install --progress flathub com.obsproject.Studio -y > /dev/null
             pwc "green" "OBS Instalado"
         fi
     }
