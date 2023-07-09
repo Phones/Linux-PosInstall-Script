@@ -87,9 +87,9 @@ InstallPrograms() {
             pwc "blue" "Instalando os pacotes necessários"
             sudo apt-get install ca-certificates curl gnupg lsb-release -y
 
-            sudo usermod -aG docker $USER
-            curl -fsSL https://get.docker.com | bash
+            sudo curl -fsSL https://get.docker.com | bash
             sudo systemctl enable docker
+            sudo usermod -aG docker $USER
             pwc "green" "Instalação do Docker Finalizada!"
             pwc "green" "--------------------------------------------"
         fi
@@ -100,10 +100,10 @@ InstallPrograms() {
             pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
 
             pwc "green" "Download do Docker Compose"
-            curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+            sudo curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
 
             pwc "green" "Setando permição para o Docker compose"
-            chmod +x /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
 
             pwc "green" "Instalação do Docker Compose Finalizada!"
 
