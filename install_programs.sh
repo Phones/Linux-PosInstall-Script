@@ -35,7 +35,7 @@ InstallPrograms() {
             # Verifica se o programa já está instalado
             if ! vertifica_programa_instalado "$program_name"; then
                 pwc "blue" "   ---> [instalando] $program_name"
-                sudo apt-get install "$program_name" -y
+                sudo apt-get install "$program_name" -y &>/dev/null
             else
                 pwc "green" "   [✔] - $program_name"
             fi

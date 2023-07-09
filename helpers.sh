@@ -30,8 +30,8 @@ function pwc()
 function update_system()
 {
   pwc "blue" "atualizando o sistema"
-  sudo apt-get update -y
-  sudo apt-get upgrade -y
+  sudo apt-get update -y &>/dev/null
+  sudo apt-get upgrade -y &>/dev/null
 }
 # -------------------------------------------------------------
 
