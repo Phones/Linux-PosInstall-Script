@@ -59,19 +59,19 @@ InstallPrograms() {
     }
 
     instala_programas_flatpack() {
-        if INSTALL_OBS; then
+        if $INSTALL_OBS; then
             flatpak install flathub com.obsproject.Studio -y
         fi
     }
 
     instala_programas_snap() {
-        if INSTALL_SPOTIFY; then
+        if $INSTALL_SPOTIFY; then
             snap install spotify
         fi
     }
     
     instala_docker() {
-        if INSTALL_DOCKER; then
+        if $INSTALL_DOCKER; then
             pwc "blue" "------ INICIANDO INSTALAÇÃO DO DOCKER ------"
             pwc "blue" "Removendo versão antiga do docker"
             {
@@ -92,7 +92,7 @@ InstallPrograms() {
     }
 
     instala_docker_compose() {
-        if INSTALL_DOCKER_COMPOSE; then
+        if $INSTALL_DOCKER_COMPOSE; then
             pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
 
             pwc "green" "Download do Docker Compose"
