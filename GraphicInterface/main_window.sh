@@ -17,7 +17,7 @@ MainWindow() {
         "python-is-python3"
         "snapd"
         "spotify"
-        "google"
+        "google-chrome"
         "vscode"
         "discord"
         "steam"

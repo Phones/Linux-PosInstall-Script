@@ -9,7 +9,7 @@ NC='\033[0m'
 CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$PWD/Downloads/"
 caminho_vscode_tmp_file="/tmp/vscode_extensions.txt"
 caminho_instalar_por_gerenciador_file="/tmp/instalar_por_gerenciador.txt"
-caminho_nomes_programas_instalados_file="/tmp/nomes_programas_instalados.txt"
+caminho_nomes_programas_externos_file="/tmp/nomes_programas_externos.txt"
 caminho_programas_externos="/tmp/download_programas_externos.txt"
 caminho_docker_file="/tmp/docker_file.txt"
 caminho_docker_compose_file="/tmp/docker_compose_file.txt"
@@ -109,6 +109,6 @@ atualiza_tudo_e_limpa_o_sistema() {
 }
 
 delete_tmp_files() {
-  rm -rf $caminho_vscode_tmp_file $caminho_instalar_por_gerenciador_file $caminho_nomes_programas_instalados_file
+  rm -rf $caminho_vscode_tmp_file $caminho_instalar_por_gerenciador_file $caminho_nomes_programas_externos_file
 }
 

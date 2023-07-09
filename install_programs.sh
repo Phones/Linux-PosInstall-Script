@@ -9,7 +9,7 @@ InstallPrograms() {
     # Criar as listas dos programas que vão ser instalados
     VSCODE_EXTENSIONS=()
     INSTALAR_POR_GERENCIADOR=()
-    LISTA_NOMES_PROGRAMAS_INSTALADOS=()
+    NOMES_PROGRAMAS_EXTERNOS=()
     DOWNLOAD_PROGRAMAS_EXTERNOS=()
     INSTALL_DOCKER=1
     INSTALL_DOCKER_COMPOSE=1
@@ -19,7 +19,7 @@ InstallPrograms() {
     le_tmp_files() {
         readarray -t VSCODE_EXTENSIONS < $caminho_vscode_tmp_file
         readarray -t INSTALAR_POR_GERENCIADOR < $caminho_instalar_por_gerenciador_file
-        # readarray -t LISTA_NOMES_PROGRAMAS_INSTALADOS < $caminho_nomes_programas_instalados_file
+        readarray -t NOMES_PROGRAMAS_EXTERNOS < $caminho_nomes_programas_externos_file
         readarray -t DOWNLOAD_PROGRAMAS_EXTERNOS < $caminho_programas_externos
 
         INSTALL_DOCKER=$(<$caminho_docker_file)
@@ -121,11 +121,11 @@ InstallPrograms() {
             fi
         done
 
-        # for $program_name in ${INSTALAR_POR_GERENCIADOR[@]}; do
-        #     if vertifica_programa_instalado_com_which "$program_name"; then
-        #         pwc "green" "      [✔] - $program_name"
-        #     fi
-        # done
+        for program_name in "${NOMES_PROGRAMAS_EXTERNOS[@]}"; do
+            if vertifica_programa_instalado_com_which "$program_name"; then
+                pwc "green" " |    [✔] - $program_name"
+            fi
+        done
 
         if [ "$INSTALL_OBS" -eq 0 ]; then
             if vertifica_programa_instalado_com_flatpak "com.obsproject.Studio"; then
@@ -152,9 +152,6 @@ InstallPrograms() {
                 fi
             fi
         fi
-        # for program_name in ${LISTA_NOMES_PROGRAMAS_EXTERNOS[@]}; do
-        #     pwc "green" "   [✔] - $program_name"
-        # done
     }
 
 

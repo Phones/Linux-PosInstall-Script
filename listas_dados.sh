@@ -7,7 +7,7 @@ CreateListsOfPrograms() {
     declare -a opcoes_selecionadas=("$@")
 
     declare -A links_download
-    links_download["google"]="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+    links_download["google-chrome"]="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
     links_download["vscode"]="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
     links_download["discord"]="https://discord.com/api/download?platform=linux&format=deb"
     links_download["obsidian"]="https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/obsidian_1.3.5_amd64.deb"
@@ -18,7 +18,7 @@ CreateListsOfPrograms() {
     local INSTALL_OBS=1
     declare -a DOWNLOAD_PROGRAMAS_EXTERNOS=()
     declare -a INSTALAR_POR_GERENCIADOR=()
-    declare -a LISTA_NOMES_PROGRAMAS_INSTALADOS=()
+    declare -a NOMES_PROGRAMAS_EXTERNOS=()
     declare -a VSCODE_EXTENSIONS=(
         dracula-theme.theme-dracula
         foxundermoon.shell-format
@@ -50,14 +50,13 @@ CreateListsOfPrograms() {
         for programa in "${INSTALAR_POR_GERENCIADOR_AUXILIAR[@]}"; do
             if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
                 INSTALAR_POR_GERENCIADOR+=("$programa")
-                LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
             fi
         done
     }
 
     cria_lista_instalar_programas_externos() {
         declare -a DOWNLOAD_PROGRAMAS_EXTERNOS_AUXILIAR=(
-            "google"
+            "google-chrome"
             "vscode"
             "discord"
             "obsidian"
@@ -66,7 +65,12 @@ CreateListsOfPrograms() {
         for programa in "${DOWNLOAD_PROGRAMAS_EXTERNOS_AUXILIAR[@]}"; do
             if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
                 DOWNLOAD_PROGRAMAS_EXTERNOS+=("${links_download[$programa]}")
-                LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
+                
+                if [ "$programa" == "vscode" ]; then 
+                    NOMES_PROGRAMAS_EXTERNOS+=("code")
+                else
+                    NOMES_PROGRAMAS_EXTERNOS+=("$programa")
+                fi
             fi
         done
     }
@@ -76,7 +80,6 @@ CreateListsOfPrograms() {
 
         if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
             INSTALL_DOCKER=0
-            LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
         fi
     }
 
@@ -85,7 +88,6 @@ CreateListsOfPrograms() {
 
         if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
             INSTALL_DOCKER_COMPOSE=0
-            LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
         fi
     }
 
@@ -94,7 +96,6 @@ CreateListsOfPrograms() {
 
         if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
             INSTALL_OBS=0
-            LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
         fi
     }
 
@@ -103,7 +104,6 @@ CreateListsOfPrograms() {
 
         if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
             INSTALL_SPOTIFY=0
-            LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
         fi
     }
     cria_lista_instalar_por_gerenciador
@@ -118,8 +118,8 @@ CreateListsOfPrograms() {
     } > $caminho_instalar_por_gerenciador_file
 
     {
-        printf "%s\n" "${LISTA_NOMES_PROGRAMAS_INSTALADOS[@]}"
-    } > $caminho_nomes_programas_instalados_file
+        printf "%s\n" "${NOMES_PROGRAMAS_EXTERNOS[@]}"
+    } > $caminho_nomes_programas_externos_file
 
     {
         printf "%s\n" "${VSCODE_EXTENSIONS[@]}"
