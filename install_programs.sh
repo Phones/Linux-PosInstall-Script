@@ -59,19 +59,23 @@ InstallPrograms() {
     }
 
     instala_programas_flatpack() {
-        if $INSTALL_OBS; then
+        if [ "$INSTALL_OBS" -eq 0 ]; then
+            pwc "BLUE" "Instalando OBS"
             flatpak install flathub com.obsproject.Studio -y
+            pwc "green" "OBS Instalado"
         fi
     }
 
     instala_programas_snap() {
-        if $INSTALL_SPOTIFY; then
+        if [ "$INSTALL_SPOTIFY" -eq 0 ]; then
+            pwc "BLUE" "Instalando spotify"
             snap install spotify
+            pwc "green" "Spotify instalado"
         fi
     }
     
     instala_docker() {
-        if $INSTALL_DOCKER; then
+        if [ "$INSTALL_DOCKER" -eq 0 ]; then
             pwc "blue" "------ INICIANDO INSTALAÇÃO DO DOCKER ------"
             pwc "blue" "Removendo versão antiga do docker"
             {
@@ -92,7 +96,7 @@ InstallPrograms() {
     }
 
     instala_docker_compose() {
-        if $INSTALL_DOCKER_COMPOSE; then
+        if [ "$INSTALL_DOCKER_COMPOSE" -eq 0 ]; then
             pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
 
             pwc "green" "Download do Docker Compose"
