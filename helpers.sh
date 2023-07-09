@@ -58,7 +58,7 @@ verificarStringNaLista() {
   return 1  # Retorna 1 (false) se a string não estiver na lista
 }
 
-vertifica_programa_instalado() {
+vertifica_programa_instalado_com_dpkg() {
   local programa="$1"
 
   # Verificar se o programa está instalado
@@ -66,6 +66,30 @@ vertifica_programa_instalado() {
       return 0  # Retorna 0 (true) se o programa estiver instalado
   else
       return 1  # Retorna 1 (false) se o programa não estiver instalado
+  fi
+}
+
+vertifica_programa_instalado_com_which() {
+  if which "$1" >/dev/null 2>&1; then
+    return 0  # Program exists
+  else
+    return 1  # Program does not exist
+  fi
+}
+
+vertifica_programa_instalado_com_flatpak() {
+  if flatpak list | grep -q "$1"; then
+    return 0  # OBS está instalado
+  else
+    return 1  # OBS não está instalado
+  fi
+}
+
+vertifica_programa_instalado_com_snap() {
+  if snap list | grep -q "$1"; then
+    return 0  # O programa está instalado pelo Snap
+  else
+    return 1  # O programa não está instalado pelo Snap
   fi
 }
 

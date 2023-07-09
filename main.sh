@@ -16,4 +16,4 @@ CreateListsOfPrograms $opcoes_selecionadas
 # Instala os programas
 InstallPrograms
 
-pwc "green" "[✔] script de instalação finalizado [✔]"
+pwc "green" "[✔]-- script de instalação finalizado --[✔]"

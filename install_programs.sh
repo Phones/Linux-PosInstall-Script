@@ -19,7 +19,7 @@ InstallPrograms() {
     le_tmp_files() {
         readarray -t VSCODE_EXTENSIONS < $caminho_vscode_tmp_file
         readarray -t INSTALAR_POR_GERENCIADOR < $caminho_instalar_por_gerenciador_file
-        readarray -t LISTA_NOMES_PROGRAMAS_INSTALADOS < $caminho_nomes_programas_instalados_file
+        # readarray -t LISTA_NOMES_PROGRAMAS_INSTALADOS < $caminho_nomes_programas_instalados_file
         readarray -t DOWNLOAD_PROGRAMAS_EXTERNOS < $caminho_programas_externos
 
         INSTALL_DOCKER=$(<$caminho_docker_file)
@@ -33,7 +33,7 @@ InstallPrograms() {
         # ---------------- Instala programas que podem ser instalados pelo gerenciador de pacotes ------------------
         for program_name in ${INSTALAR_POR_GERENCIADOR[@]}; do
             # Verifica se o programa já está instalado
-            if ! vertifica_programa_instalado "$program_name"; then
+            if ! vertifica_programa_instalado_com_dpkg "$program_name"; then
                 pwc "blue" "   ---> [instalando] $program_name"
                 sudo apt-get install "$program_name" -y > /dev/null 2> Logs/erro_$program_name.txt
             else
@@ -112,11 +112,52 @@ InstallPrograms() {
     }
 
     imprime_os_programas_instalados() {
-        pwc "green" "programas instalados"
-        for program_name in ${LISTA_NOMES_PROGRAMAS_EXTERNOS[@]}; do
-            pwc "green" "   [✔] - $program_name"
+        pwc "green" "[✔]-------- Programas instalados -------[✔]"
+        # Verifica se os programas instalados por gerenciador foram instalados com sucesso
+        for program_name in "${INSTALAR_POR_GERENCIADOR[@]}"; do
+
+            if vertifica_programa_instalado_com_dpkg "$program_name"; then
+                pwc "green" " |    [✔] - $program_name"
+            fi
         done
+
+        # for $program_name in ${INSTALAR_POR_GERENCIADOR[@]}; do
+        #     if vertifica_programa_instalado_com_which "$program_name"; then
+        #         pwc "green" "      [✔] - $program_name"
+        #     fi
+        # done
+
+        if [ "$INSTALL_OBS" -eq 0 ]; then
+            if vertifica_programa_instalado_com_flatpak "com.obsproject.Studio"; then
+                pwc "green" " |    [✔] - OBS"
+            fi
+        fi
+        
+        if [ "$INSTALL_SPOTIFY" -eq 0 ]; then
+            if vertifica_programa_instalado_com_snap "spotify"; then
+                pwc "green" " |    [✔] - spotify"
+            fi
+        fi
+        
+        if [ "$INSTALL_DOCKER" -eq 0 ]; then
+            if vertifica_programa_instalado_com_which "docker"; then
+                pwc "green" " |    [✔] - docker"
+            fi
+        fi
+        
+        if [ "$INSTALL_DOCKER_COMPOSE" -eq 0 ]; then
+            if [ -f "/usr/local/bin/docker-compose" ]; then
+                if [ -x "/usr/local/bin/docker-compose" ]; then
+                    pwc "green" " |    [✔] - docker-compose"
+                fi
+            fi
+        fi
+        # for program_name in ${LISTA_NOMES_PROGRAMAS_EXTERNOS[@]}; do
+        #     pwc "green" "   [✔] - $program_name"
+        # done
     }
+
+
 
     update_system
     le_tmp_files
@@ -133,4 +174,5 @@ InstallPrograms() {
     instala_docker
     instala_docker_compose
     atualiza_tudo_e_limpa_o_sistema
+    imprime_os_programas_instalados
 }
