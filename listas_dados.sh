@@ -5,54 +5,18 @@ source helpers.sh
 CreateListsOfPrograms() {
     # Pega a lista de opções que o usuario selecionou
     declare -a opcoes_selecionadas=("$@")
- 
-    # Declara o tipo de instalação do programa
-    declare -A dicionario_tipo_instalacao
 
-    dicionario["git"]="G"
-    dicionario["wget"]="G"
-    dicionario["g++"]="G"
-    dicionario["python3"]="G"
-    dicionario["python3-pip"]="G"
-    dicionario["python-is-python3"]="G"
-    # dicionario["snapd"]="valor1"
-    # dicionario["spotify"]="valor2"
-    # dicionario["google"]="valor3"
-    # dicionario["vscode"]="valor1"
-    # dicionario["discord"]="valor2"
-    # dicionario["steam"]="valor3"
-    # dicionario["OBS"]="valor1"
-    # dicionario["docker"]="valor2"
-    # dicionario["docker-compose"]="valor3"
-    # dicionario["obsidian"]="valor1"
+    declare -a links_download
+    links_download["google"]="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+    links_download["vscode"]="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+    links_download["discord"]="https://discord.com/api/download?platform=linux&format=deb"
+    links_download["obsidian"]="https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/obsidian_1.3.5_amd64.deb"
 
-    # ------ Cores ------
-    BLUE='\033[0;34m'
-    GREEN='\033[0;32m'
-    RED='\033[0;31m'
-    NC='\033[0m'
-    # -------------------
-
-    # ---------------------- Variaveis --------------------------
-    
-
-#     LISTA_NOMES_PROGRAMAS_INSTALADOS=(
-#         "git"
-#         "python3"
-#         "python-is-python3"
-#         "python3-pip"
-#         "snapd"
-#         "spotify"
-#         "google"
-#         "vscode"
-#         "discord"
-#         "steam"
-#         "OBS"
-#         "docker"
-#         "docker-compose"
-#         "obsidian"
-#     )
-#
+    local INSTALL_DOCKER=1
+    local INSTALL_DOCKER_COMPOSE=1
+    local INSTALL_SPOTIFY=1
+    local INSTALL_OBS=1
+    declare -a DOWNLOAD_PROGRAMAS_EXTERNOS=()
     declare -a INSTALAR_POR_GERENCIADOR=()
     declare -a LISTA_NOMES_PROGRAMAS_INSTALADOS=()
     declare -a VSCODE_EXTENSIONS=(
@@ -90,16 +54,94 @@ CreateListsOfPrograms() {
         done
     }
 
+    cria_lista_instalar_programas_externos() {
+        declare -a DOWNLOAD_PROGRAMAS_EXTERNOS_AUXILIAR=(
+            "google"
+            "vscode"
+            "discord"
+            "obsidian"
+        )
+
+        for programa in "${DOWNLOAD_PROGRAMAS_EXTERNOS_AUXILIAR[@]}"; do
+            if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
+                DOWNLOAD_PROGRAMAS_EXTERNOS+=("${links_download[$programa]}")
+                LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
+            fi
+        done
+    }
+
+    verifica_instalar_docker() {
+        local programa="docker"
+
+        if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
+            INSTALL_DOCKER=0
+            LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
+        fi
+    }
+
+    verifica_instalar_docker_compose() {
+        local programa="docker-compose"
+
+        if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
+            INSTALL_DOCKER_COMPOSE=0
+            LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
+        fi
+    }
+
+    verifica_instalar_obs() {
+        local programa="OBS"
+
+        if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
+            INSTALL_OBS=0
+            LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
+        fi
+    }
+
+    verifica_instalar_spotify() {
+        local programa="spotify"
+
+        if verificarStringNaLista "$programa" "${opcoes_selecionadas[@]}"; then
+            INSTALL_SPOTIFY=0
+            LISTA_NOMES_PROGRAMAS_INSTALADOS+=("$programa")
+        fi
+    }
+
     cria_lista_instalar_por_gerenciador
+    cria_lista_instalar_programas_externos
+    verifica_instalar_docker
+    verifica_instalar_docker_compose
+    verifica_instalar_obs
+    verifica_instalar_spotify
+
     {
         printf "%s\n" "${INSTALAR_POR_GERENCIADOR[@]}"
-    } > /tmp/instalar_por_gerenciador.txt
+    } > $caminho_instalar_por_gerenciador_file
 
     {
         printf "%s\n" "${LISTA_NOMES_PROGRAMAS_INSTALADOS[@]}"
-    } > /tmp/nomes_programas_instalados.txt
+    } > $caminho_nomes_programas_instalados_file
 
     {
         printf "%s\n" "${VSCODE_EXTENSIONS[@]}"
-    } > /tmp/vscode_extensions.txt
+    } > $caminho_vscode_tmp_file
+
+    {
+        printf "%s\n" "${DOWNLOAD_PROGRAMAS_EXTERNOS[@]}"
+    } > $caminho_programas_externos
+    # ------------------------------------------------------------
+    {
+        printf "%s\n" "$INSTALL_DOCKER"
+    } > $caminho_docker_file
+
+    {
+        printf "%s\n" "$INSTALL_DOCKER_COMPOSE"
+    } > $caminho_docker_compose_file
+
+    {
+        printf "%s\n" "$INSTALL_SPOTIFY"
+    } > $caminho_spotify_file
+
+    {
+        printf "%s\n" "$INSTALL_OBS"
+    } > $caminho_obs_file
 }

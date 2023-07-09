@@ -1,9 +1,20 @@
 #!/bin/bash
 
+# ------ Cores ------
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
 CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$PWD/Downloads"
 caminho_vscode_tmp_file="/tmp/vscode_extensions.txt"
 caminho_instalar_por_gerenciador_file="/tmp/instalar_por_gerenciador.txt"
 caminho_nomes_programas_instalados_file="/tmp/nomes_programas_instalados.txt"
+caminho_programas_externos="/tmp/programas_externos.txt"
+caminho_docker_file="/tmp/programas_externos.txt"
+caminho_docker_compose_file="/tmp/programas_externos.txt"
+caminho_spotify_file="/tmp/programas_externos.txt"
+caminho_obs_file="/tmp/programas_externos.txt"
 
 # ------------------  print with color -----------------------
 function pwc()

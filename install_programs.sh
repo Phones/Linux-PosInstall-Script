@@ -10,17 +10,22 @@ InstallPrograms() {
     VSCODE_EXTENSIONS=()
     INSTALAR_POR_GERENCIADOR=()
     LISTA_NOMES_PROGRAMAS_INSTALADOS=()
-    DOWNLOAD_PROGRAMAS_EXTERNOS=(
-        "https://discord.com/api/download?platform=linux&format=deb"
-        "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-        "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-        "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/obsidian_1.3.5_amd64.deb"
-    )
+    DOWNLOAD_PROGRAMAS_EXTERNOS=()
+    INSTALL_DOCKER=1
+    INSTALL_DOCKER_COMPOSE=1
+    INSTALL_SPOTIFY=1
+    INSTALL_OBS=1
 
     le_tmp_files() {
         readarray -t VSCODE_EXTENSIONS < $caminho_vscode_tmp_file
         readarray -t INSTALAR_POR_GERENCIADOR < $caminho_instalar_por_gerenciador_file
         readarray -t LISTA_NOMES_PROGRAMAS_INSTALADOS < $caminho_nomes_programas_instalados_file
+        readarray -t DOWNLOAD_PROGRAMAS_EXTERNOS < $caminho_programas_externos
+
+        INSTALL_DOCKER=$(<$caminho_docker_file)
+        INSTALL_DOCKER_COMPOSE=$(<$caminho_docker_compose_file)
+        INSTALL_SPOTIFY=$(<$caminho_spotify_file)
+        INSTALL_OBS=$(<$caminho_obs_file)
     }
 
     instala_os_pacostes_gerenciador_de_pacotes() {
@@ -53,44 +58,52 @@ InstallPrograms() {
     }
 
     instala_programas_flatpack() {
-        flatpak install flathub com.obsproject.Studio -y
+        if INSTALL_OBS; then
+            flatpak install flathub com.obsproject.Studio -y
+        fi
     }
 
     instala_programas_snap() {
-        snap install spotify
+        if INSTALL_SPOTIFY; then
+            snap install spotify
+        fi
     }
     
     instala_docker() {
-        pwc "blue" "------ INICIANDO INSTALAÇÃO DO DOCKER ------"
-        pwc "blue" "Removendo versão antiga do docker"
-        {
-        	sudo apt-get remove docker docker-engine docker.io containerd runc
-        } || {
-        	pwc "green" "Não existe versões anteriores para serem removidas"
-        }
-        sudo apt-get update
-        pwc "blue" "Instalando os pacotes necessários"
-        sudo apt-get install ca-certificates curl gnupg lsb-release -y
+        if INSTALL_DOCKER; then
+            pwc "blue" "------ INICIANDO INSTALAÇÃO DO DOCKER ------"
+            pwc "blue" "Removendo versão antiga do docker"
+            {
+                sudo apt-get remove docker docker-engine docker.io containerd runc
+            } || {
+                pwc "green" "Não existe versões anteriores para serem removidas"
+            }
+            sudo apt-get update
+            pwc "blue" "Instalando os pacotes necessários"
+            sudo apt-get install ca-certificates curl gnupg lsb-release -y
 
-        sudo usermod -aG docker $USER
-        curl -fsSL https://get.docker.com | bash
-        sudo systemctl enable docker
-        pwc "green" "Instalação do Docker Finalizada!"
-        pwc "green" "--------------------------------------------"
+            sudo usermod -aG docker $USER
+            curl -fsSL https://get.docker.com | bash
+            sudo systemctl enable docker
+            pwc "green" "Instalação do Docker Finalizada!"
+            pwc "green" "--------------------------------------------"
+        fi
     }
 
     instala_docker_compose() {
-        pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
+        if INSTALL_DOCKER_COMPOSE; then
+            pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
 
-        pwc "green" "Download do Docker Compose"
-        curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+            pwc "green" "Download do Docker Compose"
+            curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
 
-        pwc "green" "Setando permição para o Docker compose"
-        chmod +x /usr/local/bin/docker-compose
+            pwc "green" "Setando permição para o Docker compose"
+            chmod +x /usr/local/bin/docker-compose
 
-        pwc "green" "Instalação do Docker Compose Finalizada!"
+            pwc "green" "Instalação do Docker Compose Finalizada!"
 
-        pwc "green" "----------------------------------------------------"
+            pwc "green" "----------------------------------------------------"
+        fi
     }
 
     imprime_os_programas_instalados() {
@@ -107,6 +120,7 @@ InstallPrograms() {
     update_system
     donwload_todos_programas_externos
     instala_todos_os_programs_baixados
+    update_system
     instala_programas_flatpack
     instala_programas_snap
     update_system
