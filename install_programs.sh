@@ -116,16 +116,16 @@ InstallPrograms() {
 
     update_system
     le_tmp_files
-    # delete_tmp_files
+    delete_tmp_files
     instala_os_pacostes_gerenciador_de_pacotes
     update_system
     cria_pasta_download
     donwload_todos_programas_externos
-    # instala_todos_os_programs_baixados
-    # update_system
-    # instala_programas_flatpack
-    # instala_programas_snap
-    # update_system
-    # instala_docker
-    # instala_docker_compose
+    instala_todos_os_programs_baixados
+    update_system
+    instala_programas_flatpack
+    instala_programas_snap
+    update_system
+    instala_docker
+    instala_docker_compose
 }
