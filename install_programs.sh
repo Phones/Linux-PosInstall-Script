@@ -21,7 +21,7 @@ InstallPrograms() {
         # ---------------- Instala programas que podem ser instalados pelo gerenciador de pacotes ------------------
         for program_name in ${INSTALAR_POR_GERENCIADOR[@]}; do
             # Verifica se o programa já está instalado
-            if ! dpkg -l | grep -q $program_name; then
+            if ! vertifica_programa_instalado "$program_name"; then
                 pwc "blue" "   ---> [instalando] $program_name"
                 sudo apt-get install "$program_name" -y
             else
