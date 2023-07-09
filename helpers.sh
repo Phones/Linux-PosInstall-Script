@@ -4,6 +4,25 @@ caminho_vscode_tmp_file="/tmp/vscode_extensions.txt"
 caminho_instalar_por_gerenciador_file="/tmp/instalar_por_gerenciador.txt"
 caminho_nomes_programas_instalados_file="/tmp/nomes_programas_instalados.txt"
 
+# ------------------  print with color -----------------------
+function pwc()
+{
+    text_color=${1^^}
+    text=${2^^}
+
+    echo -e "\e${!text_color} ${text} ${NC}"
+}
+# ------------------------------------------------------------
+
+# ------------------- Atualização do sistema ------------------
+function update_system()
+{
+    pwc "blue" "atualizando o sistema"
+    sudo apt-get update -y
+    sudo apt-get upgrade -y
+}
+# -------------------------------------------------------------
+
 verificarArray() {
   local array=("$@")
   

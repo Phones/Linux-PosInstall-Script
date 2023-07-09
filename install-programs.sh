@@ -4,43 +4,13 @@ source listas_dados.sh
 
 # ------------------------------------------------------------
 
-# ------------------  print with color -----------------------
-function pwc()
-{
-    text_color=${1^^}
-    text=${2^^}
 
-    echo -e "\e${!text_color} ${text} ${NC}"
-}
-
-# ------------------- Atualização do sistema ------------------
-
-function update_system()
-{
-    pwc "blue" "atualizando o sistema"
-    sudo apt-get update -y
-    sudo apt-get upgrade -y
-}
-
-# -------------------------------------------------------------
 
 update_system
 
-# ---------------- Instala programas que podem ser instalados pelo gerenciador de pacotes ------------------
 
-pwc "blue" "instalando programas via gerenciador de pacotes"
-for program_name in ${INSTALAR_POR_GERENCIADOR[@]}; do
-    # Verifica se o programa já está instalado
-    if ! dpkg -l | grep -q $program_name; then
-        pwc "blue" "   ---> [instalando] $program_name"
-        sudo apt-get install "$program_name" -y
-    else
-        pwc "green" "   [✔] - $program_name"
-    fi
-done
-pwc "green" "Instalação dos programas de gerenciador finalizado"
 
-# ----------------------------------------------------------------------------------------------------------
+
 
 # update_system
 
