@@ -55,7 +55,7 @@ InstallPrograms() {
 
     instala_todos_os_programs_baixados() {
         pwc "blue" "instalando todos os programas baixados"
-        sudo dpkg -i $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS*.deb
+        sudo dpkg -i $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS*.deb > /dev/null 2> Logs/erro_dpkg.txt
     }
 
     instala_programas_flatpack() {
@@ -85,9 +85,9 @@ InstallPrograms() {
             }
             sudo apt-get update &>/dev/null
             pwc "blue" "Instalando os pacotes necessários"
-            sudo apt-get install ca-certificates curl gnupg lsb-release -y > /dev/null 2> Logs/erro_docker.txt
+            sudo apt-get install ca-certificates curl gnupg lsb-release -y > /dev/null 2> Logs/erro_pre_requisitos_docker.txt
 
-            sudo curl -fsSL https://get.docker.com | bash
+            sudo curl -fsSL https://get.docker.com | bash > /dev/null 2> Logs/erro_docker.txt
             sudo systemctl enable docker
             sudo usermod -aG docker $USER
             pwc "green" "Instalação do Docker Finalizada!"
