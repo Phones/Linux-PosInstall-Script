@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$PWD/Downloads"
 caminho_vscode_tmp_file="/tmp/vscode_extensions.txt"
 caminho_instalar_por_gerenciador_file="/tmp/instalar_por_gerenciador.txt"
 caminho_nomes_programas_instalados_file="/tmp/nomes_programas_instalados.txt"
@@ -7,25 +8,25 @@ caminho_nomes_programas_instalados_file="/tmp/nomes_programas_instalados.txt"
 # ------------------  print with color -----------------------
 function pwc()
 {
-    text_color=${1^^}
-    text=${2^^}
+  text_color=${1^^}
+  text=${2^^}
 
-    echo -e "\e${!text_color} ${text} ${NC}"
+  echo -e "\e${!text_color} ${text} ${NC}"
 }
 # ------------------------------------------------------------
 
 # ------------------- Atualização do sistema ------------------
 function update_system()
 {
-    pwc "blue" "atualizando o sistema"
-    sudo apt-get update -y
-    sudo apt-get upgrade -y
+  pwc "blue" "atualizando o sistema"
+  sudo apt-get update -y
+  sudo apt-get upgrade -y
 }
 # -------------------------------------------------------------
 
 verificarArray() {
   local array=("$@")
-  
+
   if [[ -n "${array[0]}" ]]; then
     echo "A variável é um array."
   else
@@ -34,30 +35,43 @@ verificarArray() {
 }
 
 verificarStringNaLista() {
-    local programa="$1"
-    shift 1  # Remover o primeiro argumento (programa) da lista de argumentos
+  local programa="$1"
+  shift 1  # Remover o primeiro argumento (programa) da lista de argumentos
 
-    for programa_selecionado in "$@"; do
-        if [ "$programa_selecionado" = "$programa" ]; then
-            return 0  # Retorna 0 (true) se a string estiver na lista
-        fi
-    done
+  for programa_selecionado in "$@"; do
+      if [ "$programa_selecionado" = "$programa" ]; then
+          return 0  # Retorna 0 (true) se a string estiver na lista
+      fi
+  done
 
-    return 1  # Retorna 1 (false) se a string não estiver na lista
+  return 1  # Retorna 1 (false) se a string não estiver na lista
 }
 
 vertifica_programa_instalado() {
-    local programa="$1"
+  local programa="$1"
 
-    # Verificar se o programa está instalado
-    if which "$programa" >/dev/null 2>&1; then
-        return 0  # Retorna 0 (true) se o programa estiver instalado
-    else
-        return 1  # Retorna 1 (false) se o programa não estiver instalado
-    fi
+  # Verificar se o programa está instalado
+  if which "$programa" >/dev/null 2>&1; then
+      return 0  # Retorna 0 (true) se o programa estiver instalado
+  else
+      return 1  # Retorna 1 (false) se o programa não estiver instalado
+  fi
+}
+
+cria_pasta_download() {
+  pwc "blue" "criando e acessando pasta de downloads dos programas externos"
+  mkdir $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS
+}
+
+atualiza_tudo_e_limpa_o_sistema() {
+  sudo apt update && sudo apt dist-upgrade -y
+  flatpak update
+  sudo apt autoclean
+  sudo apt autoremove -y
+  rm -rf $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS
 }
 
 delete_tmp_files() {
-    rm -rf $caminho_vscode_tmp_file $caminho_instalar_por_gerenciador_file $caminho_nomes_programas_instalados_file
+  rm -rf $caminho_vscode_tmp_file $caminho_instalar_por_gerenciador_file $caminho_nomes_programas_instalados_file
 }
 

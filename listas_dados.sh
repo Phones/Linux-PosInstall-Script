@@ -34,7 +34,7 @@ CreateListsOfPrograms() {
     # -------------------
 
     # ---------------------- Variaveis --------------------------
-    CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$HOME/Downloads/Programas"
+    
 
 #     LISTA_NOMES_PROGRAMAS_INSTALADOS=(
 #         "git"
