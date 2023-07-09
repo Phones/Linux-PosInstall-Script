@@ -55,7 +55,7 @@ InstallPrograms() {
 
     instala_todos_os_programs_baixados() {
         pwc "blue" "instalando todos os programas baixados"
-        dpkg -i $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS/*.deb
+        sudo dpkg -i $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS/*.deb
     }
 
     instala_programas_flatpack() {

@@ -44,6 +44,7 @@ CreateListsOfPrograms() {
             "python3"
             "python3-pip"
             "python-is-python3"
+            "snapd"
         )
         
         for programa in "${INSTALAR_POR_GERENCIADOR_AUXILIAR[@]}"; do
