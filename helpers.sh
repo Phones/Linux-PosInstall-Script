@@ -76,6 +76,7 @@ cria_pasta_download() {
 
 atualiza_tudo_e_limpa_o_sistema() {
   sudo apt update && sudo apt dist-upgrade -y
+  sudo apt install -fy
   flatpak update
   sudo apt autoclean
   sudo apt autoremove -y
