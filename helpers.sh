@@ -115,7 +115,7 @@ atualiza_tudo_e_limpa_o_sistema() {
 
 imcrementa_variavel_progresso() {
   progresso_instalacao=$((progresso_instalacao + $1))
-  echo $(($progresso_instalacao * 100 / total))
+  echo $(($progresso_instalacao * 100 / total)) >&3
 }
 
 delete_tmp_files() {

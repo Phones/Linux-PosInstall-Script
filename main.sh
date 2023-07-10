@@ -6,6 +6,7 @@ source GraphicInterface/main_window.sh
 source listas_dados.sh
 source install_programs.sh
 
+pwc "BLUE" "Atualizando pacotes"
 sudo apt-get update > /dev/null 2> Logs/log_update0.txt
 
 # Chamar a função da janela principal
@@ -27,10 +28,9 @@ opcoes_selecionadas=$(MainWindow)
     # Instala os programas
     InstallPrograms
 
-) | zenity --progress --title="Progresso" --text="Processando..." --auto-close
+) 3>&1 1>&2 | zenity --progress --title="Progresso" --text="Processando..." --auto-close
 
 # Exibir uma mensagem quando o código terminar
 zenity --info --title="Concluído" --text="O código foi concluído com sucesso!"
-
 
 pwc "green" "[✔]-- script de instalação finalizado --[✔]"
