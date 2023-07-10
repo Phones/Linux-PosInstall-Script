@@ -81,7 +81,7 @@ InstallPrograms() {
             pwc "blue" "------ INICIANDO INSTALAÇÃO DO DOCKER ------"
             pwc "blue" "Removendo versão antiga do docker"
             {
-                sudo apt-get remove docker docker-engine docker.io containerd runc
+                sudo apt-get remove docker docker-engine docker.io containerd runc -y > /dev/null 2> Logs/log_remover_docker_antigo.txt
             } || {
                 pwc "green" "Não existe versões anteriores para serem removidas"
             }
