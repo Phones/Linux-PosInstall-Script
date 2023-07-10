@@ -180,11 +180,9 @@ InstallPrograms() {
         fi
 
         if [ "$INSTALL_EXTENSOES_VSCODE" -eq 0 ]; then
-            if vertifica_programa_instalado_com_which "docker"; then
-                local num_espacos=13
-                local espacos=$(printf '%*s' "$num_espacos" '')
-                pwc "green" " |    [✔] - extensoes-vscode${espacos}|"
-            fi
+            local num_espacos=13
+            local espacos=$(printf '%*s' "$num_espacos" '')
+            pwc "green" " |    [✔] - extensoes-vscode${espacos}|"
         fi
     }
 

@@ -162,6 +162,7 @@ CreateListsOfPrograms() {
     verifica_instalar_docker_compose
     verifica_instalar_obs
     verifica_instalar_spotify
+    verifica_instalar_extensoes_vscode
 
     {
         printf "%s\n" "${INSTALAR_POR_GERENCIADOR[@]}"
