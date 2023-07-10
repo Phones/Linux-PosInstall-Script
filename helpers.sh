@@ -16,6 +16,10 @@ caminho_docker_compose_file="/tmp/docker_compose_file.txt"
 caminho_spotify_file="/tmp/spotify_file.txt"
 caminho_obs_file="/tmp/obs_file.txt"
 caminho_extensoes_vscode_file="/tmp/extensoes_vscode_file.txt"
+# Progresso do codigo de instalação
+progresso_instalacao=0
+# Definir o valor máximo para a barra de progresso
+total=100
 
 # ------------------  print with color -----------------------
 function pwc()
@@ -107,6 +111,11 @@ atualiza_tudo_e_limpa_o_sistema() {
   sudo apt autoclean > /dev/null 2> Logs/log_autoclean.txt
   sudo apt autoremove -y > /dev/null 2> Logs/log_autoremove.txt
   rm -rf $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS
+}
+
+imcrementa_variavel_progresso() {
+  progresso_instalacao=$((progresso_instalacao + $1))
+  echo $(($progresso_instalacao * 100 / total))
 }
 
 delete_tmp_files() {

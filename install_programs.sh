@@ -187,20 +187,70 @@ InstallPrograms() {
     }
 
     update_system
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     le_tmp_files
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     delete_tmp_files
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     instala_os_pacostes_gerenciador_de_pacotes
+    imcrementa_variavel_progresso 4
+    sleep 0.1
+
     update_system
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+    
     cria_pasta_download
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     donwload_todos_programas_externos
+    imcrementa_variavel_progresso 4
+    sleep 0.1
+
     instala_todos_os_programs_baixados
+    imcrementa_variavel_progresso 4
+    sleep 0.1
+
     update_system
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     instala_programas_flatpack
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     instala_programas_snap
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     update_system
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     instala_docker
+    imcrementa_variavel_progresso 4
+    sleep 0.1
+
     instala_docker_compose
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     atualiza_tudo_e_limpa_o_sistema
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     instala_extensoes_vscode
+    imcrementa_variavel_progresso 3
+    sleep 0.1
+
     imprime_os_programas_instalados
+    imcrementa_variavel_progresso 3
+    sleep 0.1
 }
