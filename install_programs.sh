@@ -119,6 +119,7 @@ InstallPrograms() {
             for extension in "${VSCODE_EXTENSIONS[@]}"
                 do
                     code --install-extension "$extension" > /dev/null 2> Logs/log_estensoes_vscode.txt
+                    imcrementa_variavel_progresso 1
                 done
             pwc "green" "extensoes Instaladas"
         fi
@@ -191,11 +192,11 @@ InstallPrograms() {
     sleep 0.1
 
     le_tmp_files
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     delete_tmp_files
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     instala_os_pacostes_gerenciador_de_pacotes
@@ -203,11 +204,11 @@ InstallPrograms() {
     sleep 0.1
 
     update_system
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
     
     cria_pasta_download
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     donwload_todos_programas_externos
@@ -215,23 +216,23 @@ InstallPrograms() {
     sleep 0.1
 
     instala_todos_os_programs_baixados
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     update_system
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     instala_programas_flatpack
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     instala_programas_snap
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     update_system
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     instala_docker
@@ -239,18 +240,18 @@ InstallPrograms() {
     sleep 0.1
 
     instala_docker_compose
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     atualiza_tudo_e_limpa_o_sistema
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     instala_extensoes_vscode
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     imprime_os_programas_instalados
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 }

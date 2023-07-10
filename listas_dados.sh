@@ -157,82 +157,82 @@ CreateListsOfPrograms() {
     }
 
     cria_lista_instalar_por_gerenciador
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     cria_lista_instalar_programas_externos
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     verifica_instalar_docker
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     verifica_instalar_docker_compose
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     verifica_instalar_obs
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     verifica_instalar_spotify
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     verifica_instalar_extensoes_vscode
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     {
         printf "%s\n" "${INSTALAR_POR_GERENCIADOR[@]}"
     } > $caminho_instalar_por_gerenciador_file
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     {
         printf "%s\n" "${NOMES_PROGRAMAS_EXTERNOS[@]}"
     } > $caminho_nomes_programas_externos_file
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     {
         printf "%s\n" "${VSCODE_EXTENSIONS[@]}"
     } > $caminho_vscode_tmp_file
-    imcrementa_variavel_progresso 4
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     printf "%s\n" "${DOWNLOAD_PROGRAMAS_EXTERNOS[@]}" > $caminho_programas_externos
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 1
     sleep 0.1
     # ------------------------------------------------------------
     {
         printf "%s\n" "$INSTALL_DOCKER"
     } > $caminho_docker_file
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     {
         printf "%s\n" "$INSTALL_DOCKER_COMPOSE"
     } > $caminho_docker_compose_file
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     {
         printf "%s\n" "$INSTALL_SPOTIFY"
     } > $caminho_spotify_file
-    imcrementa_variavel_progresso 3
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     {
         printf "%s\n" "$INSTALL_OBS"
     } > $caminho_obs_file
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 1
     sleep 0.1
 
     {
         printf "%s\n" "$INSTALL_EXTENSOES_VSCODE"
     } > $caminho_extensoes_vscode_file
-    imcrementa_variavel_progresso 2
+    imcrementa_variavel_progresso 3
     sleep 0.1
 }

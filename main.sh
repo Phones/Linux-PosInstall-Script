@@ -7,17 +7,20 @@ source listas_dados.sh
 source install_programs.sh
 
 sudo apt-get update
-imcrementa_variavel_progresso 3
-sleep 0.1
 
 # Chamar a função da janela principal
 opcoes_selecionadas=$(MainWindow)
-imcrementa_variavel_progresso 6
-sleep 0.1
 
 # Iniciar o diálogo do Zenity com uma barra de progresso
 (
-    
+    # inicia a barra aqui (progresso update)
+    imcrementa_variavel_progresso 1
+    sleep 0.1
+
+    # inicia a barra aqui (progresso mainwindow)
+    imcrementa_variavel_progresso 1
+    sleep 0.1
+
     # Monta as informações das listas
     CreateListsOfPrograms $opcoes_selecionadas
 
