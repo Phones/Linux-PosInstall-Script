@@ -33,7 +33,7 @@ InstallPrograms() {
     instala_os_pacostes_gerenciador_de_pacotes() {
         pwc "blue" "instalando programas via gerenciador de pacotes"
         # ---------------- Instala programas que podem ser instalados pelo gerenciador de pacotes ------------------
-        for program_name in ${INSTALAR_POR_GERENCIADOR[@]}; do
+        for program_name in "${INSTALAR_POR_GERENCIADOR[@]}"; do
             # Verifica se o programa já está instalado
             if ! vertifica_programa_instalado_com_dpkg "$program_name"; then
                 pwc "blue" "   ---> [instalando] $program_name"

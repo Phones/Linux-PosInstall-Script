@@ -6,7 +6,7 @@ source GraphicInterface/main_window.sh
 source listas_dados.sh
 source install_programs.sh
 
-sudo apt-get update
+sudo apt-get update > /dev/null 2> Logs/log_update0.txt
 
 # Chamar a função da janela principal
 opcoes_selecionadas=$(MainWindow)
