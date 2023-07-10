@@ -115,46 +115,57 @@ InstallPrograms() {
         pwc "green" "[✔]-------- Programas instalados -------[✔]"
         # Verifica se os programas instalados por gerenciador foram instalados com sucesso
         for program_name in "${INSTALAR_POR_GERENCIADOR[@]}"; do
-
             if vertifica_programa_instalado_com_dpkg "$program_name"; then
-                pwc "green" " |    [✔] - $program_name"
+                local tam=${#program_name}
+                local num_espacos=$((29 - tam))
+                local espacos=$(printf '%*s' "$num_espacos" '')
+                pwc "green" " |    [✔] - $program_name${espacos}|"
             fi
         done
 
         for program_name in "${NOMES_PROGRAMAS_EXTERNOS[@]}"; do
             if vertifica_programa_instalado_com_which "$program_name"; then
-                pwc "green" " |    [✔] - $program_name"
+                local tam=${#program_name}
+                local num_espacos=$((29 - tam))
+                local espacos=$(printf '%*s' "$num_espacos" '')
+                pwc "green" " |    [✔] - $program_name${espacos}|"
             fi
         done
 
         if [ "$INSTALL_OBS" -eq 0 ]; then
             if vertifica_programa_instalado_com_flatpak "com.obsproject.Studio"; then
-                pwc "green" " |    [✔] - OBS"
+                local num_espacos=26
+                local espacos=$(printf '%*s' "$num_espacos" '')
+                pwc "green" " |    [✔] - OBS${espacos}|"
             fi
         fi
         
         if [ "$INSTALL_SPOTIFY" -eq 0 ]; then
-            if vertifica_programa_instalado_com_snap "spotify"; then
+            if vertifica_programa_instalado_com_snap "spotify${espacos}|"; then
+                local num_espacos=22
+                local espacos=$(printf '%*s' "$num_espacos" '')
                 pwc "green" " |    [✔] - spotify"
             fi
         fi
         
         if [ "$INSTALL_DOCKER" -eq 0 ]; then
             if vertifica_programa_instalado_com_which "docker"; then
-                pwc "green" " |    [✔] - docker"
+                local num_espacos=23
+                local espacos=$(printf '%*s' "$num_espacos" '')
+                pwc "green" " |    [✔] - docker${espacos}|"
             fi
         fi
         
         if [ "$INSTALL_DOCKER_COMPOSE" -eq 0 ]; then
             if [ -f "/usr/local/bin/docker-compose" ]; then
                 if [ -x "/usr/local/bin/docker-compose" ]; then
-                    pwc "green" " |    [✔] - docker-compose"
+                local num_espacos=14
+                local espacos=$(printf '%*s' "$num_espacos" '')
+                    pwc "green" " |    [✔] - docker-compose${espacos}|"
                 fi
             fi
         fi
     }
-
-
 
     update_system
     le_tmp_files
