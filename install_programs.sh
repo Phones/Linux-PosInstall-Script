@@ -199,7 +199,7 @@ InstallPrograms() {
     sleep 0.1
 
     instala_os_pacostes_gerenciador_de_pacotes
-    imcrementa_variavel_progresso 4
+    imcrementa_variavel_progresso 3
     sleep 0.1
 
     update_system
@@ -211,11 +211,11 @@ InstallPrograms() {
     sleep 0.1
 
     donwload_todos_programas_externos
-    imcrementa_variavel_progresso 4
+    imcrementa_variavel_progresso 3
     sleep 0.1
 
     instala_todos_os_programs_baixados
-    imcrementa_variavel_progresso 4
+    imcrementa_variavel_progresso 3
     sleep 0.1
 
     update_system
@@ -235,7 +235,7 @@ InstallPrograms() {
     sleep 0.1
 
     instala_docker
-    imcrementa_variavel_progresso 4
+    imcrementa_variavel_progresso 3
     sleep 0.1
 
     instala_docker_compose
