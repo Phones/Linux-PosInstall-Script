@@ -119,6 +119,8 @@ InstallPrograms() {
             for extension in "${VSCODE_EXTENSIONS[@]}"
                 do
                     code --install-extension "$extension" > /dev/null 2> Logs/log_estensoes_vscode.txt
+                    nome_extensao=$(retorna_nome_da_extensao "$extension")
+                    pwc "green" "Extensão [$nome_extensao] instalada[✔]"
                     imcrementa_variavel_progresso 1
                 done
             pwc "green" "extensoes Instaladas"

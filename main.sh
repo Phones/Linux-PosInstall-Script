@@ -30,7 +30,7 @@ opcoes_selecionadas=$(MainWindow)
 
 ) 3>&1 1>&2 | zenity --progress --title="Progresso" --text="Processando..." --auto-close
 
+pwc "green" "[✔]-- script de instalação finalizado --[✔]"
+
 # Exibir uma mensagem quando o código terminar
 zenity --info --title="Concluído" --text="O código foi concluído com sucesso!"
-
-pwc "green" "[✔]-- script de instalação finalizado --[✔]"

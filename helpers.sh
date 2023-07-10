@@ -118,6 +118,16 @@ imcrementa_variavel_progresso() {
   echo $(($progresso_instalacao * 100 / total)) >&3
 }
 
+retorna_nome_da_extensao() {
+  nome_diretorio_sem_versao=$1
+  # Nome completo da pasta
+  diretorios_encontrados=$(compgen -d "$HOME/.vscode/extensions/$nome_diretorio_sem_versao")
+  # Pega o nome da extensao
+  nome_extensao=$(grep -Po '"displayName":\s*"\K[^"]+' $diretorios_encontrados/package.json)
+  # Retorna o nome da extensao coletado
+  echo $nome_extensao
+}
+
 delete_tmp_files() {
   rm -rf $caminho_vscode_tmp_file $caminho_instalar_por_gerenciador_file $caminho_nomes_programas_externos_file
 }
