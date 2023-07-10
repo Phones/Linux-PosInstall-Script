@@ -30,8 +30,8 @@ function pwc()
 function update_system()
 {
   pwc "blue" "atualizando o sistema"
-  sudo apt-get update -y > /dev/null 2> Logs/erro_update.txt
-  sudo apt-get upgrade -y > /dev/null 2> Logs/erro_upgrade.txt
+  sudo apt-get update -y > /dev/null 2> Logs/log_update.txt
+  sudo apt-get upgrade -y > /dev/null 2> Logs/log_upgrade.txt
 }
 # -------------------------------------------------------------
 
@@ -99,12 +99,12 @@ cria_pasta_download() {
 }
 
 atualiza_tudo_e_limpa_o_sistema() {
-  sudo apt update -y> /dev/null 2> Logs/erro_update_final.txt
-  sudo apt dist-upgrade -y > /dev/null 2> Logs/erro_dist_upgrade.txt
-  sudo apt install -fy > /dev/null 2> Logs/erro_instalar_depencias_faltando.txt
-  flatpak update > /dev/null 2> Logs/erro_flatpak_update.txt
-  sudo apt autoclean > /dev/null 2> Logs/erro_autoclean.txt
-  sudo apt autoremove -y > /dev/null 2> Logs/erro_autoremove.txt
+  sudo apt update -y> /dev/null 2> Logs/log_update_final.txt
+  sudo apt dist-upgrade -y > /dev/null 2> Logs/log_dist_upgrade.txt
+  sudo apt install -fy > /dev/null 2> Logs/log_instalar_depencias_faltando.txt
+  flatpak update > /dev/null 2> Logs/log_flatpak_update.txt
+  sudo apt autoclean > /dev/null 2> Logs/log_autoclean.txt
+  sudo apt autoremove -y > /dev/null 2> Logs/log_autoremove.txt
   rm -rf $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS
 }
 

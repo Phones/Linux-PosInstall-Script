@@ -35,7 +35,7 @@ InstallPrograms() {
             # Verifica se o programa já está instalado
             if ! vertifica_programa_instalado_com_dpkg "$program_name"; then
                 pwc "blue" "   ---> [instalando] $program_name"
-                sudo apt-get install "$program_name" -y > /dev/null 2> Logs/erro_$program_name.txt
+                sudo apt-get install "$program_name" -y > /dev/null 2> Logs/log_$program_name.txt
             else
                 pwc "green" "   [✔] - $program_name"
             fi
@@ -55,13 +55,13 @@ InstallPrograms() {
 
     instala_todos_os_programs_baixados() {
         pwc "blue" "instalando todos os programas baixados"
-        sudo dpkg -i $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS*.deb > /dev/null 2> Logs/erro_dpkg.txt
+        sudo dpkg -i $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS*.deb > /dev/null 2> Logs/log_dpkg.txt
     }
 
     instala_programas_flatpack() {
         if [ "$INSTALL_OBS" -eq 0 ]; then
             pwc "BLUE" "Instalando OBS"
-            flatpak install flathub com.obsproject.Studio -y > /dev/null 2> Logs/erro_obs.txt
+            flatpak install flathub com.obsproject.Studio -y > /dev/null 2> Logs/log_obs.txt
             pwc "green" "OBS Instalado"
         fi
     }
@@ -69,7 +69,7 @@ InstallPrograms() {
     instala_programas_snap() {
         if [ "$INSTALL_SPOTIFY" -eq 0 ]; then
             pwc "BLUE" "Instalando spotify"
-            snap install spotify 2> Logs/erro_spotify.txt
+            snap install spotify 2> Logs/log_spotify.txt
             pwc "green" "Spotify instalado"
         fi
     }
@@ -85,9 +85,9 @@ InstallPrograms() {
             }
             sudo apt-get update &>/dev/null
             pwc "blue" "Instalando os pacotes necessários"
-            sudo apt-get install ca-certificates curl gnupg lsb-release -y > /dev/null 2> Logs/erro_pre_requisitos_docker.txt
+            sudo apt-get install ca-certificates curl gnupg lsb-release -y > /dev/null 2> Logs/log_pre_requisitos_docker.txt
 
-            sudo curl -fsSL https://get.docker.com | bash > /dev/null 2> Logs/erro_docker.txt
+            sudo curl -fsSL https://get.docker.com | bash > /dev/null 2> Logs/log_docker.txt
             sudo systemctl enable docker
             sudo usermod -aG docker $USER
             pwc "green" "Instalação do Docker Finalizada!"
@@ -100,7 +100,7 @@ InstallPrograms() {
             pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
 
             pwc "green" "Download do Docker Compose"
-            sudo curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose > /dev/null 2> Logs/erro_docker_compose.txt
+            sudo curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose > /dev/null 2> Logs/log_docker_compose.txt
 
             pwc "green" "Setando permição para o Docker compose"
             sudo chmod +x /usr/local/bin/docker-compose
