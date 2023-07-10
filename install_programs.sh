@@ -15,6 +15,7 @@ InstallPrograms() {
     INSTALL_DOCKER_COMPOSE=1
     INSTALL_SPOTIFY=1
     INSTALL_OBS=1
+    INSTALL_EXTENSOES_VSCODE=1
 
     le_tmp_files() {
         readarray -t VSCODE_EXTENSIONS < $caminho_vscode_tmp_file
@@ -26,6 +27,7 @@ InstallPrograms() {
         INSTALL_DOCKER_COMPOSE=$(<$caminho_docker_compose_file)
         INSTALL_SPOTIFY=$(<$caminho_spotify_file)
         INSTALL_OBS=$(<$caminho_obs_file)
+        INSTALL_EXTENSOES_VSCODE=$(<$caminho_extensoes_vscode_file)
     }
 
     instala_os_pacostes_gerenciador_de_pacotes() {
@@ -111,6 +113,17 @@ InstallPrograms() {
         fi
     }
 
+    instala_extensoes_vscode() {
+        if [ "$INSTALL_EXTENSOES_VSCODE" -eq 0 ]; then
+            pwc "BLUE" "Instalando extensoes do vscode"
+            for extension in "${VSCODE_EXTENSIONS[@]}"
+                do
+                    code --install-extension "$extension" > /dev/null 2> Logs/log_estensoes_vscode.txt
+                done
+            pwc "green" "extensoes Instaladas"
+        fi
+    }
+
     imprime_os_programas_instalados() {
         pwc "green" "[✔]-------- Programas instalados -------[✔]"
         # Verifica se os programas instalados por gerenciador foram instalados com sucesso
@@ -159,10 +172,18 @@ InstallPrograms() {
         if [ "$INSTALL_DOCKER_COMPOSE" -eq 0 ]; then
             if [ -f "/usr/local/bin/docker-compose" ]; then
                 if [ -x "/usr/local/bin/docker-compose" ]; then
-                local num_espacos=14
+                local num_espacos=15
                 local espacos=$(printf '%*s' "$num_espacos" '')
                     pwc "green" " |    [✔] - docker-compose${espacos}|"
                 fi
+            fi
+        fi
+
+        if [ "$INSTALL_EXTENSOES_VSCODE" -eq 0 ]; then
+            if vertifica_programa_instalado_com_which "docker"; then
+                local num_espacos=13
+                local espacos=$(printf '%*s' "$num_espacos" '')
+                pwc "green" " |    [✔] - extensoes-vscode${espacos}|"
             fi
         fi
     }
@@ -182,5 +203,6 @@ InstallPrograms() {
     instala_docker
     instala_docker_compose
     atualiza_tudo_e_limpa_o_sistema
+    instala_extensoes_vscode
     imprime_os_programas_instalados
 }

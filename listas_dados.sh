@@ -16,23 +16,66 @@ CreateListsOfPrograms() {
     local INSTALL_DOCKER_COMPOSE=1
     local INSTALL_SPOTIFY=1
     local INSTALL_OBS=1
+    local INSTALL_EXTENSOES_VSCODE=1
     declare -a DOWNLOAD_PROGRAMAS_EXTERNOS=()
     declare -a INSTALAR_POR_GERENCIADOR=()
     declare -a NOMES_PROGRAMAS_EXTERNOS=()
     declare -a VSCODE_EXTENSIONS=(
+        bbenoist.shell
+        donjayamanne.githistory
+        donjayamanne.python-environment-manager
         dracula-theme.theme-dracula
+        eamodio.gitlens
+        esbenp.prettier-vscode
+        exiasr.hadolint
+        formulahendry.code-runner
         foxundermoon.shell-format
+        GrapeCity.gc-excelviewer
+        James-Yu.latex-workshop
+        jeff-hykin.better-dockerfile-syntax
+        jeff-hykin.better-shellscript-syntax
+        madewithcardsio.adaptivecardsstudiobeta
+        mads-hartmann.bash-ide-vscode
+        mechatroner.rainbow-csv
+        meronz.manpages
+        ms-azuretools.vscode-bicep
+        ms-azuretools.vscode-docker
+        MS-CEINTL.vscode-language-pack-pt-BR
+        ms-dotnettools.vscode-dotnet-runtime
+        ms-python.isort
         ms-python.python
         ms-python.vscode-pylance
         ms-toolsai.jupyter
         ms-toolsai.jupyter-keymap
         ms-toolsai.jupyter-renderers
+        ms-toolsai.vscode-jupyter-cell-tags
+        ms-toolsai.vscode-jupyter-slideshow
+        ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh
         ms-vscode-remote.remote-ssh-edit
+        ms-vscode.azure-account
         ms-vscode.cpptools
+        ms-vscode.cpptools-extension-pack
+        ms-vscode.cpptools-themes
+        ms-vscode.makefile-tools
+        ms-vscode.remote-explorer
         natqe.reload
+        njpwerner.autodocstring
         PKief.material-icon-theme
+        redhat.vscode-yaml
+        Remisa.shellman
+        rogalmic.bash-debug
+        ryu1kn.edit-with-shell
+        streetsidesoftware.code-spell-checker
+        streetsidesoftware.code-spell-checker-portuguese-brazilian
+        TeamsDevApp.ms-teams-vscode-extension
+        tetradresearch.vscode-h2o
+        timonwong.shellcheck
         truman.autocomplate-shell
+        woozy-masta.shell-script-ide
+        XadillaX.viml
+        xshrim.txt-syntax
+        yzhang.markdown-all-in-one
     )
 
     cria_lista_instalar_por_gerenciador()
@@ -106,6 +149,13 @@ CreateListsOfPrograms() {
             INSTALL_SPOTIFY=0
         fi
     }
+
+    verifica_instalar_extensoes_vscode() {
+        if verificarStringNaLista "extensões-vscode" "${opcoes_selecionadas[@]}"; then
+            INSTALL_EXTENSOES_VSCODE=0
+        fi
+    }
+
     cria_lista_instalar_por_gerenciador
     cria_lista_instalar_programas_externos
     verifica_instalar_docker
@@ -142,4 +192,8 @@ CreateListsOfPrograms() {
     {
         printf "%s\n" "$INSTALL_OBS"
     } > $caminho_obs_file
+
+    {
+        printf "%s\n" "$INSTALL_EXTENSOES_VSCODE"
+    } > $caminho_extensoes_vscode_file
 }

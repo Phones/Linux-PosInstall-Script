@@ -25,6 +25,7 @@ MainWindow() {
         "docker"
         "docker-compose"
         "obsidian"
+        "extensões-vscode"
     )
 
     contruir_lista_opcao() {

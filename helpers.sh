@@ -15,6 +15,7 @@ caminho_docker_file="/tmp/docker_file.txt"
 caminho_docker_compose_file="/tmp/docker_compose_file.txt"
 caminho_spotify_file="/tmp/spotify_file.txt"
 caminho_obs_file="/tmp/obs_file.txt"
+caminho_extensoes_vscode_file="/tmp/extensoes_vscode_file.txt"
 
 # ------------------  print with color -----------------------
 function pwc()
