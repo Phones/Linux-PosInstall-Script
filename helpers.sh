@@ -119,7 +119,7 @@ imcrementa_variavel_progresso() {
 }
 
 retorna_nome_da_extensao() {
-  nome_diretorio_sem_versao=$1
+  nome_diretorio_sem_versao=$(echo "$1" | tr '[:upper:]' '[:lower:]')
   # Nome completo da pasta
   diretorios_encontrados=$(compgen -d "$HOME/.vscode/extensions/$nome_diretorio_sem_versao")
   # Pega o nome da extensao
