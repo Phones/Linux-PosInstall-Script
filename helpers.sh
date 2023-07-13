@@ -36,7 +36,6 @@ function pwc()
 # ------------------- Atualização do sistema ------------------
 function update_system()
 {
-  echo $password
   pwc "blue" "atualizando o sistema"
   echo "$password" | sudo -S apt-get update -y > /dev/null 2> Logs/log_update.txt
   echo "$password" | sudo -S apt-get upgrade -y > /dev/null 2> Logs/log_upgrade.txt
