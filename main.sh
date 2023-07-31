@@ -6,8 +6,14 @@ source GraphicInterface/main_window.sh
 source listas_dados.sh
 source install_programs.sh
 
+# Solicita senha para o usuario
+password=$(zenity --password --title="Digite a senha do usuário")
+
+# Seta a senha no stdin, para que seja possivel ler a senha da entrada principa, sem solicitar ela novamente
+echo $password | sudo -Sv
+
 pwc "BLUE" "Atualizando pacotes"
-sudo apt-get update > /dev/null 2> Logs/log_update0.txt
+echo $password | sudo -S apt-get update > /dev/null 2> Logs/log_update0.txt
 
 # Chamar a função da janela principal
 opcoes_selecionadas=$(MainWindow)

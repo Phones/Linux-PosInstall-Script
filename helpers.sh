@@ -20,6 +20,8 @@ caminho_extensoes_vscode_file="/tmp/extensoes_vscode_file.txt"
 progresso_instalacao=0
 # Definir o valor máximo para a barra de progresso
 total=100
+# Defini a variavel que vai armazeenar a senha inserida para o usuario
+password="admin"
 
 # ------------------  print with color -----------------------
 function pwc()
@@ -35,8 +37,8 @@ function pwc()
 function update_system()
 {
   pwc "blue" "atualizando o sistema"
-  sudo apt-get update -y > /dev/null 2> Logs/log_update.txt
-  sudo apt-get upgrade -y > /dev/null 2> Logs/log_upgrade.txt
+  echo "$password" | sudo -S apt-get update -y > /dev/null 2> Logs/log_update.txt
+  echo "$password" | sudo -S apt-get upgrade -y > /dev/null 2> Logs/log_upgrade.txt
 }
 # -------------------------------------------------------------
 
@@ -104,12 +106,12 @@ cria_pasta_download() {
 }
 
 atualiza_tudo_e_limpa_o_sistema() {
-  sudo apt update -y> /dev/null 2> Logs/log_update_final.txt
-  sudo apt dist-upgrade -y > /dev/null 2> Logs/log_dist_upgrade.txt
-  sudo apt install -fy > /dev/null 2> Logs/log_instalar_depencias_faltando.txt
-  flatpak update > /dev/null 2> Logs/log_flatpak_update.txt
-  sudo apt autoclean > /dev/null 2> Logs/log_autoclean.txt
-  sudo apt autoremove -y > /dev/null 2> Logs/log_autoremove.txt
+  echo "$password" | sudo -S apt update -y> /dev/null 2> Logs/log_update_final.txt
+  echo "$password" | sudo -S apt dist-upgrade -y > /dev/null 2> Logs/log_dist_upgrade.txt
+  echo "$password" | sudo -S apt install -fy > /dev/null 2> Logs/log_instalar_depencias_faltando.txt
+  echo "$password" | sudo -S flatpak update > /dev/null 2> Logs/log_flatpak_update.txt
+  echo "$password" | sudo -S apt autoclean > /dev/null 2> Logs/log_autoclean.txt
+  echo "$password" | sudo -S apt autoremove -y > /dev/null 2> Logs/log_autoremove.txt
   rm -rf $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS
 }
 

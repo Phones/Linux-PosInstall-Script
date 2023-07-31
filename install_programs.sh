@@ -3,7 +3,6 @@
 source helpers.sh
 
 InstallPrograms() {
-    declare -a INSTALAR_POR_GERENCIADOR=("$@")
     CAMINHO_PASTA_DOWNLOADS_PROGRAMAS="$PWD/Downloads/"
 
     # Criar as listas dos programas que vão ser instalados
@@ -37,7 +36,7 @@ InstallPrograms() {
             # Verifica se o programa já está instalado
             if ! vertifica_programa_instalado_com_dpkg "$program_name"; then
                 pwc "blue" "   ---> [instalando] $program_name"
-                sudo apt-get install "$program_name" -y > /dev/null 2> Logs/log_$program_name.txt
+                echo "$password" | sudo -S apt-get install "$program_name" -y > /dev/null 2> Logs/log_$program_name.txt
             else
                 pwc "green" "   [✔] - $program_name"
             fi
@@ -57,13 +56,13 @@ InstallPrograms() {
 
     instala_todos_os_programs_baixados() {
         pwc "blue" "instalando todos os programas baixados"
-        sudo dpkg -i $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS*.deb > /dev/null 2> Logs/log_dpkg.txt
+        echo "$password" | sudo -S dpkg -i $CAMINHO_PASTA_DOWNLOADS_PROGRAMAS*.deb > /dev/null 2> Logs/log_dpkg.txt
     }
 
     instala_programas_flatpack() {
         if [ "$INSTALL_OBS" -eq 0 ]; then
             pwc "BLUE" "Instalando OBS"
-            flatpak install flathub com.obsproject.Studio -y > /dev/null 2> Logs/log_obs.txt
+            echo "$password" | sudo -S flatpak install flathub com.obsproject.Studio -y > /dev/null 2> Logs/log_obs.txt
             pwc "green" "OBS Instalado"
         fi
     }
@@ -71,7 +70,7 @@ InstallPrograms() {
     instala_programas_snap() {
         if [ "$INSTALL_SPOTIFY" -eq 0 ]; then
             pwc "BLUE" "Instalando spotify"
-            snap install spotify 2> Logs/log_spotify.txt
+            echo "$password" | sudo -S snap install spotify 2> Logs/log_spotify.txt
             pwc "green" "Spotify instalado"
         fi
     }
@@ -81,7 +80,7 @@ InstallPrograms() {
             pwc "blue" "------ INICIANDO INSTALAÇÃO DO DOCKER ------"
             pwc "blue" "Removendo versão antiga do docker"
             {
-                sudo apt-get remove docker docker-engine docker.io containerd runc -y > /dev/null 2> Logs/log_remover_docker_antigo.txt
+                echo "$password" | sudo -S apt-get remove docker docker-engine docker.io containerd runc -y > /dev/null 2> Logs/log_remover_docker_antigo.txt
             } || {
                 pwc "green" "Não existe versões anteriores para serem removidas"
             }
@@ -102,10 +101,10 @@ InstallPrograms() {
             pwc "green" "------ INICIANDO INSTALAÇÃO DO DOCKER COMPOSE ------"
 
             pwc "green" "Download do Docker Compose"
-            sudo curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose > /dev/null 2> Logs/log_docker_compose.txt
+            echo "$password" | sudo -S curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose > /dev/null 2> Logs/log_docker_compose.txt
 
             pwc "green" "Setando permição para o Docker compose"
-            sudo chmod +x /usr/local/bin/docker-compose
+            echo "$password" | sudo -S chmod +x /usr/local/bin/docker-compose
 
             pwc "green" "Instalação do Docker Compose Finalizada!"
 
